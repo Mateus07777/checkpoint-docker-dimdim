@@ -22,4 +22,17 @@ app.UseSwaggerUI();
 
 app.MapControllers();
 
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+    try
+    {
+        db.Database.EnsureCreated();
+    }
+    catch
+    {
+    }
+}
+
 app.Run();
